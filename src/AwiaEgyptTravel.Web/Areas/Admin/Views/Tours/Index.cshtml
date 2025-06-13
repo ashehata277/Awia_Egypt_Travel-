@@ -1,0 +1,91 @@
+@model List<TourListViewModel>
+@{
+    ViewData["Title"] = "Tours Management";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Tours Management</h2>
+    <a asp-action="Create" class="btn btn-primary">Create New Tour</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Price (Adult)</th>
+                <th>Currency</th>
+                <th>Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tour in Model)
+            {
+                <tr>
+                    <td>@tour.Name</td>
+                    <td>@tour.Category</td>
+                    <td>@tour.Location</td>
+                    <td>@tour.AdultPrice.ToString("N2")</td>
+                    <td>@tour.Currency</td>
+                    <td>
+                        @if (tour.IsAvailable)
+                        {
+                            <span class="badge bg-success">Yes</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">No</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@tour.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" 
+                                data-bs-target="#deleteModal" data-id="@tour.Id" data-name="@tour.Name">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the tour "<span id="tourName"></span>"?</p>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="tourId" name="id" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#deleteModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var name = button.data('name');
+                var modal = $(this);
+                modal.find('#tourId').val(id);
+                modal.find('#tourName').text(name);
+            });
+        });
+    </script>
+}

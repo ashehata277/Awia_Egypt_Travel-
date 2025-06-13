@@ -1,0 +1,202 @@
+/* General Styles */
+:root {
+    --primary-color: #1e88e5;
+    --secondary-color: #ff6d00;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+}
+
+body {
+    padding-top: 76px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 600px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-top: -76px;
+    padding-top: 76px;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Tour Cards */
+.tour-card {
+    border: none;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tour-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.tour-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.tour-card .price {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Category Cards */
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 300px;
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.1);
+}
+
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Tour Details */
+.tour-gallery {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tour-gallery img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.booking-card {
+    position: sticky;
+    top: 90px;
+}
+
+/* Cart */
+.cart-item {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.cart-item img {
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Checkout Form */
+.checkout-form label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(30,136,229,0.25);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding-top: 3rem;
+}
+
+.footer a {
+    color: var(--light-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--primary-color);
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+/* Admin Dashboard */
+.admin-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.stats-card {
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 400px;
+    }
+
+    .tour-gallery img {
+        height: 300px;
+    }
+
+    .booking-card {
+        position: static;
+        margin-top: 1rem;
+    }
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Utils */
+.bg-overlay {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}

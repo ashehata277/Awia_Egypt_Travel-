@@ -1,0 +1,138 @@
+@model ContactViewModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container mt-4">
+    <!-- Hero Section -->
+    <div class="hero-section mb-5" style="background-image: url('/images/contact-hero.jpg');">
+        <div class="bg-overlay h-100">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-md-8">
+                        <div class="text-white">
+                            <h1 class="display-4 fw-bold text-shadow">Contact Us</h1>
+                            <p class="lead text-shadow">Get in touch with our friendly team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Contact Information -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-4">Get In Touch</h4>
+                    
+                    <div class="mb-4">
+                        <h6><i class="bi bi-geo-alt-fill text-primary"></i> Office Address</h6>
+                        <p class="text-muted">
+                            123 Travel Street<br>
+                            Cairo, Egypt<br>
+                            12345
+                        </p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6><i class="bi bi-telephone-fill text-primary"></i> Phone Numbers</h6>
+                        <p class="text-muted">
+                            Main: +20 123 456 789<br>
+                            Support: +20 987 654 321
+                        </p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6><i class="bi bi-envelope-fill text-primary"></i> Email</h6>
+                        <p class="text-muted">
+                            info@awiaegypttravel.com<br>
+                            support@awiaegypttravel.com
+                        </p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6><i class="bi bi-clock-fill text-primary"></i> Business Hours</h6>
+                        <p class="text-muted">
+                            Monday - Friday: 9:00 AM - 6:00 PM<br>
+                            Saturday: 10:00 AM - 4:00 PM<br>
+                            Sunday: Closed
+                        </p>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-primary"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-md-8 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-4">Send Us a Message</h4>
+                    <form asp-action="Contact" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label">Your Name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label">Email Address</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Subject" class="form-label">Subject</label>
+                            <input asp-for="Subject" class="form-control" />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Message" class="form-label">Message</label>
+                            <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27814.54749369634!2d31.233420399999998!3d30.044420300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAyJzM5LjkiTiAzMcKwMTQnMDAuMyJF!5e0!3m2!1sen!2seg!4v1623579621053!5m2!1sen!2seg" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

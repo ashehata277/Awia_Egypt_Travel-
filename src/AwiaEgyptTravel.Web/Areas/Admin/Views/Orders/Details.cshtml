@@ -1,0 +1,135 @@
+@model OrderDetailViewModel
+@{
+    ViewData["Title"] = $"Order Details #{Model.Id}";
+}
+
+<div class="container">
+    <h2>Order Details #@Model.Id</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Customer Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Name</dt>
+                        <dd class="col-sm-8">@Model.CustomerName</dd>
+
+                        <dt class="col-sm-4">Email</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+
+                        <dt class="col-sm-4">Phone</dt>
+                        <dd class="col-sm-8">@Model.Phone</dd>
+
+                        <dt class="col-sm-4">Address</dt>
+                        <dd class="col-sm-8">@Model.Address</dd>
+
+                        <dt class="col-sm-4">City</dt>
+                        <dd class="col-sm-8">@Model.City</dd>
+
+                        <dt class="col-sm-4">Country</dt>
+                        <dd class="col-sm-8">@Model.Country</dd>
+
+                        <dt class="col-sm-4">ZIP Code</dt>
+                        <dd class="col-sm-8">@Model.ZipCode</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Hotel Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Hotel Name</dt>
+                        <dd class="col-sm-8">@Model.HotelName</dd>
+
+                        <dt class="col-sm-4">Room Number</dt>
+                        <dd class="col-sm-8">@Model.RoomNumber</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Tour Details</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Tour Name</dt>
+                        <dd class="col-sm-8">@Model.Tour.Name</dd>
+
+                        <dt class="col-sm-4">Location</dt>
+                        <dd class="col-sm-8">@Model.Tour.Location</dd>
+
+                        <dt class="col-sm-4">Start Time</dt>
+                        <dd class="col-sm-8">@Model.Tour.StartTime.ToString("g")</dd>
+
+                        <dt class="col-sm-4">Duration</dt>
+                        <dd class="col-sm-8">@Model.Tour.Duration.ToString(@"hh\:mm")</dd>
+
+                        <dt class="col-sm-4">Category</dt>
+                        <dd class="col-sm-8">@Model.Tour.Category</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Booking Details</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Adults</dt>
+                        <dd class="col-sm-8">@Model.AdultCount x @Model.Tour.AdultPrice.ToString("C")</dd>
+
+                        <dt class="col-sm-4">Children</dt>
+                        <dd class="col-sm-8">@Model.ChildCount x @Model.Tour.ChildPrice.ToString("C")</dd>
+
+                        <dt class="col-sm-4">Infants</dt>
+                        <dd class="col-sm-8">@Model.InfantCount x @Model.Tour.InfantPrice.ToString("C")</dd>
+
+                        <dt class="col-sm-4">Total Amount</dt>
+                        <dd class="col-sm-8 h5">@Model.TotalAmount.ToString("C")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Email Status</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.IsEmailSent)
+            {
+                <p class="text-success">
+                    <i class="bi bi-check-circle"></i>
+                    Email sent on @Model.EmailSentDate?.ToString("g")
+                </p>
+            }
+            else
+            {
+                <p class="text-danger">
+                    <i class="bi bi-x-circle"></i>
+                    Email not sent
+                </p>
+                <form asp-action="ResendEmail" method="post" class="d-inline">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-warning">Resend Email</button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

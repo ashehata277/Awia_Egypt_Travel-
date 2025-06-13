@@ -1,0 +1,172 @@
+@model List<TourListViewModel>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="hero-section position-relative">
+    <div class="hero-slider">
+        <div class="hero-slide" style="background-image: url('/images/hero-1.jpg');">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-md-8 text-white">
+                        <h1 class="display-4 fw-bold">Discover Egypt's Beauty</h1>
+                        <p class="lead">Experience the magic of ancient history and modern luxury</p>
+                        <a href="#featured-tours" class="btn btn-primary btn-lg">Explore Tours</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Tours Section -->
+<section id="featured-tours" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Tours</h2>
+        <div class="row">
+            @foreach (var tour in Model.Take(6))
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 tour-card">
+                        <img src="@(tour.MainPhotoUrl ?? "/images/placeholder.jpg")" class="card-img-top" alt="@tour.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@tour.Name</h5>
+                            <p class="card-text text-muted">
+                                <i class="bi bi-geo-alt"></i> @tour.Location
+                            </p>
+                            <p class="card-text">@tour.Description.Substring(0, Math.Min(100, tour.Description.Length))...</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">From @tour.AdultPrice.ToString("C") @tour.Currency</span>
+                                <a asp-controller="Tours" asp-action="Details" asp-route-id="@tour.Id" 
+                                   class="btn btn-outline-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Why Choose Us</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <i class="bi bi-award display-4 text-primary mb-3"></i>
+                    <h4>Expert Guides</h4>
+                    <p>Professional and knowledgeable guides to enhance your experience</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <i class="bi bi-shield-check display-4 text-primary mb-3"></i>
+                    <h4>Safe Travel</h4>
+                    <p>Your safety is our top priority with trusted partners and services</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <i class="bi bi-cash-coin display-4 text-primary mb-3"></i>
+                    <h4>Best Value</h4>
+                    <p>Competitive prices and exclusive deals for unforgettable experiences</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Explore by Category</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <a asp-controller="Tours" asp-action="Excursions" class="category-card">
+                    <div class="card text-white">
+                        <img src="/images/excursions.jpg" class="card-img" alt="Excursions">
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                            <h3 class="card-title">Excursions</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a asp-controller="Tours" asp-action="Chalets" class="category-card">
+                    <div class="card text-white">
+                        <img src="/images/chalets.jpg" class="card-img" alt="Chalets">
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                            <h3 class="card-title">Chalets</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .hero-section {
+            height: 80vh;
+            margin-top: -56px; /* Adjust based on your navbar height */
+        }
+
+        .hero-slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-card {
+            transition: transform 0.3s;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-card {
+            text-decoration: none;
+        }
+
+        .category-card .card {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .category-card .card-img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover .card-img {
+            transform: scale(1.1);
+        }
+
+        .category-card .card-img-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .category-card .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+}
