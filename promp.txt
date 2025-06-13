@@ -1,0 +1,109 @@
+I want to create a new .NET web MVC project using Clean Architecture principles and a well-organized folder structure.
+
+Project Overview:
+The project is a booking platform for excursions and chalets. It must be styled with a modern and responsive design.
+
+Project Type:
+ASP.NET MVC Web Application
+EntityFrameworkCore For SQL Server and make it code first approach.
+
+Architecture:
+Clean Architecture
+
+Organized folder structure
+
+Features to Include:
+General Pages:
+Home Page
+
+Email Template Settings Page
+Admin can set it's email template which this mail will send after customer add an order
+
+Order List Page
+admin can see the list of order and it already sent the mail or not and can retry sent mail if fail on sent or not sent.
+
+Displays a list of available excursions and chalets.
+
+Each item should be presented attractively with an option to add to the cart.
+
+About Page
+
+Contains information about the company ("About Us").
+
+Contact Page
+
+Includes a "Contact Us" form or section.
+
+Admin Panel:
+Admin Page
+
+A control panel to create and manage the list of excursions and chalets.
+
+Each excursion or chalet item should support the following fields:
+
+Multiple photos
+
+Trip period
+
+Start time
+
+Description
+
+Tour category
+
+Price
+
+Location
+
+Availability
+
+Other relevant details
+
+Currency selection: Admin can choose between US Dollar and Egyptian Pound.
+
+Pricing by category: Admin can define separate prices for Adults, Children, and Infants.
+
+User Interaction:
+Trip Detail Page
+
+Shows all details of a selected trip.
+
+Includes a "Book Now" button to initiate the booking process.
+
+Includes an "Add to Cart" button to allow users to save the trip to their cart.
+
+Cart Page
+
+Displays a list of trips that the user has added to their cart.
+
+Trips can be added to the cart from both the Home Page and the Trip Detail Page.
+
+Checkout Page
+
+Contains a form for users to complete their booking.
+
+Form fields:
+
+Name
+
+Email
+
+Phone
+
+Address
+
+City
+
+Country
+
+ZIP code
+
+Card number
+
+Hotel information:
+
+Hotel name
+
+Room number
+
+Includes a "Book Trip" button.
