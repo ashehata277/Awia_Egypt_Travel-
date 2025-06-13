@@ -5,16 +5,20 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwiaEgyptTravel.Web.Controllers
-{
-    public class CheckoutController : Controller
+{    public class CheckoutController : Controller
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IPaymentService _paymentService;
 
-        public CheckoutController(IMediator mediator, IMapper mapper)
+        public CheckoutController(
+            IMediator mediator,
+            IMapper mapper,
+            IPaymentService paymentService)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _paymentService = paymentService;
         }
 
         public IActionResult Index()
@@ -34,8 +38,7 @@ namespace AwiaEgyptTravel.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PlaceOrder(CheckoutViewModel model)
+        [ValidateAntiForgeryToken]        public async Task<IActionResult> PlaceOrder(CheckoutViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -51,6 +54,24 @@ namespace AwiaEgyptTravel.Web.Controllers
 
             try
             {
+                // Process payment first
+                var (success, transactionId) = await _paymentService.ProcessPaymentAsync(
+                    model.CardNumber,
+                    model.ExpiryMonth,
+                    model.ExpiryYear,
+                    model.Cvc,
+                    model.TotalAmount,
+                    cart.First().Currency // Assuming all items are in the same currency
+                );
+
+                if (!success)
+                {
+                    ModelState.AddModelError("", "Payment processing failed. Please check your card details and try again.");
+                    model.CartItems = cart;
+                    return View("Index", model);
+                }
+
+                // Process orders after successful payment
                 foreach (var item in cart)
                 {
                     var command = new CreateOrderCommand
@@ -67,7 +88,8 @@ namespace AwiaEgyptTravel.Web.Controllers
                         AdultCount = item.AdultCount,
                         ChildCount = item.ChildCount,
                         InfantCount = item.InfantCount,
-                        TourId = item.TourId
+                        TourId = item.TourId,
+                        TransactionId = transactionId
                     };
 
                     var response = await _mediator.Send(command);

@@ -43,12 +43,24 @@ namespace AwiaEgyptTravel.Web.Models
 
         [Required]
         [Display(Name = "ZIP Code")]
-        public string ZipCode { get; set; }
-
-        [Required]
+        public string ZipCode { get; set; }        [Required]
         [Display(Name = "Card Number")]
         [CreditCard]
         public string CardNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Expiry Month")]
+        [Range(1, 12)]
+        public string ExpiryMonth { get; set; }
+
+        [Required]
+        [Display(Name = "Expiry Year")]
+        public string ExpiryYear { get; set; }
+
+        [Required]
+        [Display(Name = "CVC")]
+        [StringLength(4, MinimumLength = 3)]
+        public string Cvc { get; set; }
 
         [Required]
         [Display(Name = "Hotel Name")]

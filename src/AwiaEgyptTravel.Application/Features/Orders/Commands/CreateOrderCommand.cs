@@ -20,8 +20,8 @@ namespace AwiaEgyptTravel.Application.Features.Orders.Commands
         public string RoomNumber { get; set; }
         public int AdultCount { get; set; }
         public int ChildCount { get; set; }
-        public int InfantCount { get; set; }
-        public int TourId { get; set; }
+        public int InfantCount { get; set; }        public int TourId { get; set; }
+        public string TransactionId { get; set; }
     }
 
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, BaseResponse<OrderDto>>
@@ -74,6 +74,7 @@ namespace AwiaEgyptTravel.Application.Features.Orders.Commands
                     InfantCount = request.InfantCount,
                     TotalAmount = totalAmount,
                     TourId = request.TourId,
+                    TransactionId = request.TransactionId,
                     IsEmailSent = false
                 };
 
